@@ -1,0 +1,28 @@
+version: '3'
+services:
+  sketch-ws:
+    image: lpineda/sketch-ws
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - redis
+      - mosquitto
+    links:
+      - redis
+      - mosquitto
+  redis:
+    image: redis
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+  sketch-ui:
+    build: .
+    ports:
+      - "80:80"
+    links:
+      - sketch-ws
+    depends_on:
+      - sketch-ws
