@@ -16,6 +16,9 @@ import {
 
 } from 'react-vis';
 
+
+export const SKETCH_WS_URL = "localhost:8080";
+
 class Indicator extends Component {
     render () {
         return (
@@ -40,7 +43,7 @@ class Header extends Component {
 
     componentWillMount() {
         setInterval( () => {
-            fetch('http://localhost:8080/status')
+            fetch('http://'+SKETCH_WS_URL+'/status')
                 .then((response) => {
                     return response.json()
                 })
@@ -83,10 +86,9 @@ class Histogram extends Component {
             }
         };
 
-        console.log(this.props.heavyKeyType);
         const histLength = this.state.config.histLength;
 
-        fetch('http://localhost:8080/heavykeys?count='+histLength)
+        fetch('http://'+SKETCH_WS_URL+'/heavykeys?count='+histLength)
             .then((response) => {
                 return response.json()
             })
@@ -96,8 +98,8 @@ class Histogram extends Component {
                 let epochs = Object.keys(heavy_keys);
                 let hh_hist_data = [];
                 let hc_hist_data = [];
-                for (let i = 0; i < histLength; i++) {
-                    hh_hist_data.push({x: epochs[i], y: heavy_keys[epochs[i]].heavyHittersCounter})
+                for (let i = 0; i < Math.min(histLength, epochs.length); i++) {
+                    hh_hist_data.push({x: epochs[i], y: heavy_keys[epochs[i]].heavyHittersCounter});
                     hc_hist_data.push({x: epochs[i], y: heavy_keys[epochs[i]].heavyChangersCounter})
                 }
 
@@ -121,7 +123,7 @@ class Histogram extends Component {
     }
     componentWillMount() {
         setInterval(() => {
-            fetch('http://localhost:8080/heavykeys?count=1')
+            fetch('http://'+SKETCH_WS_URL+'/heavykeys?count=1')
                 .then((response) => {
                     return response.json()
                 })
@@ -178,7 +180,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Header/>
-                <Histogram heavyKeyType='hh' />
+                <Histogram/>
             </div>
         );
     }
