@@ -86,53 +86,30 @@ class Histogram extends Component {
             }
         };
 
+    };
+    componentDidMount() {
         const histLength = this.state.config.histLength;
 
-        fetch('http://'+SKETCH_WS_URL+'/heavykeys?count='+histLength)
-            .then((response) => {
-                return response.json()
-            })
-            .then((json_response) => {
-                let heavy_keys = json_response.HeavyKeys;
-
-                let epochs = Object.keys(heavy_keys);
-                let hh_hist_data = [];
-                let hc_hist_data = [];
-                for (let i = 0; i < Math.min(histLength, epochs.length); i++) {
-                    hh_hist_data.push({x: epochs[i], y: heavy_keys[epochs[i]].heavyHittersCounter});
-                    hc_hist_data.push({x: epochs[i], y: heavy_keys[epochs[i]].heavyChangersCounter})
-                }
-
-                this.setState({
-                    hh_data: hh_hist_data,
-                    hc_data: hc_hist_data
-                });
-            });
-    };
-    addHHEvent(props) {
-        let hist_data = this.state.hh_data;
-        hist_data.shift();
-        hist_data.push(props);
-        this.setState({hh_data: hist_data})
-    }
-    addHCEvent(props) {
-        let hist_data = this.state.hc_data;
-        hist_data.shift();
-        hist_data.push(props);
-        this.setState({hc_data: hist_data})
-    }
-    componentWillMount() {
         setInterval(() => {
-            fetch('http://'+SKETCH_WS_URL+'/heavykeys?count=1')
+            fetch('http://'+SKETCH_WS_URL+'/heavykeys?count='+histLength)
                 .then((response) => {
                     return response.json()
                 })
                 .then((json_response) => {
                     let heavy_keys = json_response.HeavyKeys;
-                    let epoch = Object.keys(heavy_keys);
-                    this.addHHEvent({x: epoch, y: heavy_keys[epoch].heavyHittersCounter});
-                    this.addHCEvent({x: epoch, y: heavy_keys[epoch].heavyChangersCounter});
 
+                    let epochs = Object.keys(heavy_keys);
+                    let hh_hist_data = [];
+                    let hc_hist_data = [];
+                    for (let i = 0; i < Math.min(histLength, epochs.length); i++) {
+                        hh_hist_data.push({x: epochs[i], y: heavy_keys[epochs[i]].heavyHittersCounter});
+                        hc_hist_data.push({x: epochs[i], y: heavy_keys[epochs[i]].heavyChangersCounter})
+                    }
+
+                    this.setState({
+                        hh_data: hh_hist_data,
+                        hc_data: hc_hist_data
+                    });
                 })
         }, 2000);
     };
