@@ -1,38 +1,79 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .App-header {
-  background-color: #222;
-  height: 60px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
+    background-color: #222;
+    color: white;
+    flex-direction: row;
+    justify-content: space-around;
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
+    flex-shrink: 0;
+    height: 8vh;
 }
 
 .Header-indicator {
-  color: white;
-  border-spacing: 15px 50px;
-  display: inline-block;
-  width: 232px;
-  height: 80px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 18px;
+}
+
+.Header-logo {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 24px;
 
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.App-dashboard {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
 }
 
+.dashboard-row {
+    display: flex;
+    flex: 0 0 auto; /* or: flex-shrink: 0; */
+    height: 100%;
+
+}
+
+.hk-table {
+    width: 25%;
+    border: 1px solid black;
+    height: 46vh;
+    overflow-y: auto;
+
+}
+
+.histogram {
+    flex-direction: row;
+    border: 1px solid black;
+    flex-grow: 1;
+    height: 46vh;
+
+}
+
+.epoch-title {
+    background-color: darkgrey;
+    height:4px;
+}
+
+.event {
+    background-color: gainsboro;
+    height:4px;
+}

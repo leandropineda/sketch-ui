@@ -8,7 +8,7 @@ RUN npm install --silent
 RUN npm install react-scripts@1.1.1 -g --silent
 RUN npm install cors
 RUN npm install react-vis --save
-RUN npm install --save react-showcase
+RUN npm install react-bootstrap-table-next --save
 
 ADD . /usr/src/app
 RUN npm run build
