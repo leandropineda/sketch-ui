@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 docker run -it \
     -v ${PWD}/../../:/usr/src/app \
     -v /usr/src/app/node_modules \
