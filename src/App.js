@@ -14,7 +14,7 @@ import {
 
 } from 'react-vis';
 
-export const SKETCH_WS_URL = "localhost:8080";
+export const SKETCH_WS_URL = "sketch-ws:8080";
 
 class Indicator extends Component {
     render () {
